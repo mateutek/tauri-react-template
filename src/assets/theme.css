@@ -1,0 +1,37 @@
+/* ============================================================
+   Base typography defaults for scaffold/ui.
+   Tokens (colors, radius, shadow, motion) live in base.css.
+   ============================================================ */
+
+:root {
+  font-family: var(--font-sans);
+  font-size: 14px; /* --text-sm default per scaffold/ui */
+  line-height: 1.25rem;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.18s var(--ease-out, ease),
+    color 0.18s var(--ease-out, ease);
+}
+
+/* Geist Mono renders token names literally (no -- → em-dash ligature) */
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-mono);
+  font-feature-settings: "liga" 0, "calt" 0;
+}
