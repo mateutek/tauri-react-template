@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Moon, Sun } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useThemeStore } from "@/stores/themeStore";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 function SettingsView() {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useThemeStore();
 
   return (
     <div className="mx-auto max-w-[760px] px-8 py-10">
@@ -28,17 +27,10 @@ function SettingsView() {
           <div className="flex flex-col gap-0.5">
             <span className="font-medium">Theme</span>
             <span className="text-sm text-muted-foreground">
-              Switch between light and dark mode
+              Light, dark, or follow your system
             </span>
           </div>
-          <Button variant="outline" onClick={toggleTheme}>
-            {theme === "light" ? (
-              <Sun className="size-[18px]" />
-            ) : (
-              <Moon className="size-[18px]" />
-            )}
-            {theme === "light" ? "Light" : "Dark"}
-          </Button>
+          <ThemeSwitcher />
         </div>
       </section>
 
