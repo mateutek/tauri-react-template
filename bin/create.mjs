@@ -106,6 +106,14 @@ const FILES = [
 
 for (const f of FILES) replaceInFile(f)
 
+// strip template-only sections from AGENTS.md — they're advice about the
+// template itself, not about the app generated from it
+const agentsPath = resolve(dest, 'AGENTS.md')
+try {
+  const src = readFileSync(agentsPath, 'utf8')
+  writeFileSync(agentsPath, src.replace(/<!-- template-only -->[\s\S]*?<!-- \/template-only -->\n*/g, ''), 'utf8')
+} catch { /* best-effort */ }
+
 // strip the "bin" field so the generated project isn't a CLI tool itself
 const pkgPath = resolve(dest, 'package.json')
 try {

@@ -17,6 +17,7 @@ A reusable starter template for building desktop or web applications with:
 
 ```
 tauri-react-template/
+├── AGENTS.md                 # Conventions for AI agents working in this repo
 ├── bin/
 │   └── create.mjs            # Scaffold CLI (stripped from generated projects)
 ├── index.html
@@ -37,14 +38,17 @@ tauri-react-template/
 │   ├── components/
 │   │   ├── BottomBar.tsx     # Fixed bottom nav: app name, settings link, theme toggle
 │   │   └── ui/
-│   │       └── button.tsx    # shadcn Button component (all variants)
+│   │       ├── button.tsx    # shadcn Button component (all variants)
+│   │       └── input.tsx     # shadcn Input component
 │   ├── lib/
+│   │   ├── schemas.ts        # Zod schemas — the model layer, types inferred from here
+│   │   ├── tauri.ts          # Schema-parsed invoke() / db.select() helpers
 │   │   └── utils.ts          # cn() utility (clsx + tailwind-merge)
 │   ├── stores/
 │   │   └── themeStore.ts     # Light/dark theme (Zustand), persisted to localStorage
 │   └── views/
 │       ├── HomeView.tsx      # Generic home with placeholder card grid
-│       └── SettingsView.tsx  # Settings page with theme toggle section
+│       └── SettingsView.tsx  # Theme toggle + RHF/Zod form reference implementation
 └── src-tauri/                # Tauri desktop wrapper (remove if web-only)
     ├── build.rs
     ├── Cargo.toml
