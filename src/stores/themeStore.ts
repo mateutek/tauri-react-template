@@ -1,9 +1,7 @@
 import { create } from 'zustand';
+import { themeModeSchema, type ResolvedTheme, type ThemeMode } from '@/lib/schemas';
 
-// User preference. `system` follows the OS color scheme.
-export type ThemeMode = 'light' | 'dark' | 'system';
-// Actually applied scheme.
-export type ResolvedTheme = 'light' | 'dark';
+export type { ResolvedTheme, ThemeMode };
 
 const mql = () => window.matchMedia('(prefers-color-scheme: dark)');
 const systemResolved = (): ResolvedTheme => (mql().matches ? 'dark' : 'light');
@@ -18,11 +16,10 @@ const applyResolved = (resolved: ResolvedTheme) => {
   root.setAttribute('data-theme', resolved);
 };
 
-const initialMode = (): ThemeMode => {
-  const saved = localStorage.getItem('theme');
-  if (saved === 'light' || saved === 'dark' || saved === 'system') return saved;
-  return 'system';
-};
+// localStorage is untrusted input — a stale or hand-edited value falls back
+// to 'system' rather than putting a bogus mode into the store.
+const initialMode = (): ThemeMode =>
+  themeModeSchema.safeParse(localStorage.getItem('theme')).data ?? 'system';
 
 interface ThemeState {
   mode: ThemeMode;
